@@ -1,0 +1,29 @@
+https://docs.google.com/document/d/1nrcfcB8Z4PEFBV2fOnyPDgsWIJQrvDAwREBLGrnkAAY/edit
+https://github.com/vgl266/saltyCharGen/blob/master/saltyCharGen.py
+
+name
+race
+gender
+
+combat skills
+non-combat skills
+
+supernatural
+starting location
+stone
+
+theft
+murder
+deity
+
+questlines and factions
+follower
+archnemesis
+
+name race gender
+combat skills: 2 major 2 weak
+armor: evasion or heavy armor or mage
+non-combat skills
+stone starting supernatural
+theft and murder and deity
+questlines factions archnemesis
