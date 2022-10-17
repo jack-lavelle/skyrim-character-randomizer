@@ -1,5 +1,8 @@
 #This is made to be completely independent despite breaking code organization norms. This will be copied and pasted into an online python console where it will
 #function as intended.
+
+#Simply copy and paste this into an online python console (https://www.programiz.com/python-programming/online-compiler/) and follow the prompts. More features
+#will be added as time goes on.
 import random as r
 
 class CharacterBuild:
