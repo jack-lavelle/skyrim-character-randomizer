@@ -1,9 +1,12 @@
 races = ["Altmer", "Argonian", "Bosmer", "Breton", "Dunmer", "Imperial", "Khajiit", "Nord", "Orc", "Redguard"]
 armour = ["Evasion", "Heavy Armour", "Alteration + Illusion (mage armor + blur)"]
+
 warriorStones = ["The Lady", "The Lord", "The Steed", "The Warrior"]
-warriorCombatSkills = ["Marksman", "Block", "One Handed", "Two Handed"]
+warriorCombatSkills = ["Marksman", "Block", ["One Handed", "Two Handed"]]
+
 mageSkills = ["Alteration", "Conjuration", "Destruction", "Illusion", "Restoration"]
 mageStones = ["The Apprentice", "The Atronach", "The Mage", "The Ritual"]
+
 nonCombatSkills = ["Alchemy", "Enchanting", "Lockpicking", "Pickpocket", "Smithing", "Speech"]
 thiefStones = ["The Lover", "The Shadow", "The Thief", "The Tower"]
 
