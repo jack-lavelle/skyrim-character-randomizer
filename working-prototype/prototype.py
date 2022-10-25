@@ -1,65 +1,71 @@
-#This is made to be completely independent despite breaking code organization norms. This will be copied and pasted into an online python console where it will
-#function as intended.
+#This is made to be completely self-contained despite breaking code organization norms. Until I have made a website proper, this will be copied and pasted into an online python 
+#console.
 
 #Simply copy and paste this into an online python console (https://www.programiz.com/python-programming/online-compiler/) and follow the prompts. More features
 #will be added as time goes on.
 import random as r
 
 class CharacterBuild:
-    def __init__(self, compRan):
-        if compRan == "1":
-            self.startingLocation = startingLocations[r.randrange(0, len(startingLocations), 1)]
-            self.race = races[r.randrange(0, len(races), 1)]
-            self.armour = armours[r.randrange(0, len(armours), 1)]
+    races = ["Altmer", "Argonian", "Bosmer", "Breton", "Dunmer", "Imperial", "Khajiit", "Nord", "Orc", "Redguard"]
+    startinglocations = ["Dawnstar", "Falkreath", "Markarth", "Riften", "Solitude", "Whiterun", "Windhelm", "Winterhold"]
+    divines = ["Akatosh", "Arkay", "Dibella", "Julianos", "Kynareth", "Mara", "Stendarr", "Talos", "Zenithar", "Nocturnal", "Auriel"]
 
-            stoneNum = r.randrange(0, len(stones), 1)
-            if stoneNum == 3:
-                self.stone = stones[3]
-            else:
-                self.stone = stones[stoneNum][r.randrange(0, len(stones[stoneNum]), 1)]
-            
-            self.civilwar = civilwar[r.randrange(0, len(civilwar), 1)]
-            self.dawnguard = dawnguard[r.randrange(0, len(dawnguard), 1)]
-            self.murder = morality[r.randrange(0, len(morality), 1)]
-            self.theft = morality[r.randrange(0, len(morality), 1)]
+    factions = ["College of Winterhold", "The Companions", "The Thieves Guild", "The Dark Brotherhood", "The Bard's College"]
+    civilwars = ["Stormcloaks", "Imperial"]
+    dawnguards = ["Volkihar Clan", "Dawnguard"]
 
-            self.skills = set()
-            while len(self.skills) < 6:
-                skillSelect = r.randrange(0, 2, 1)
-                if skillSelect == 1:
-                    self.skills.add(skills[skillSelect][r.randrange(0, len(skills[skillSelect]), 1)])
-                else:
-                    randomSkillList = skills[skillSelect][r.randrange(0, len(skills[skillSelect]), 1)]
-                    self.skills.add(randomSkillList[r.randrange(0, len(randomSkillList), 1)])
+    warriorStones = ["The Lady", "The Lord", "The Steed", "The Warrior"]
+    mageStones = ["The Apprentice", "The Atronach", "The Mage", "The Ritual"]
+    thiefStones = ["The Lover", "The Shadow", "The Thief", "The Tower"]
+    stones = [warriorStones, mageStones, thiefStones, "The Serpent"]
 
-        else:
-            print("not yet implemented.")
+    warriorSkills = [["Marksman", "One Handed", "Two Handed"], ["Block"]]
+    mageSkills = [["Conjuration", "Destruction"], ["Alteration", "Illusion", "Restoration"]]
+    nonCombatSkills = ["Alchemy", "Enchanting", "Lockpicking + Pickpocket", "Smithing", "Speech"]
+    combatSkills = [warriorSkills, mageSkills]
+    armours = ["Evasion", "Heavy Armour", "Alteration + Illusion (mage armor + blur)"]
+    backgrounds = {
+        'Agent': 'Illusion, Lockpicking, Marksman, One-Handed, Sneak, Speechcraft', 
+        'Acrobat': 'Lockpicking, Marksman, One-Handed, Pickpocket, Sneak, Speechcraft', 
+        'Assassin': 'Alchemy, Evasion, Lockpicking, Marksman, One-Handed, Sneak', 
+        'Barbarian': 'Block, Evasion, Marksman, One-Handed, Smithing, Two-Handed', 
+        'Bard': 'Block, Enchanting, Illusion, Evasion, One-Handed, Speechcraft', 
+        'Battlemage': 'Alteration, Conjuration, Destruction, Enchanting, Heavy Armor, Two-Handed', 
+        'Crusader': 'Alchemy, Block, Destruction, Heavy Armor, One-Handed, Restoration', 
+        'Healer': 'Alchemy, Alteration, Destruction, Illusion, Restoration, Speechcraft', 
+        'Knight': 'Block, Enchanting, Heavy Armor, One-Handed, Restoration, Speechcraft', 
+        'Monk': 'Alteration, Illusion, Lockpicking, Marksman, One-Handed, Sneak', 
+        'Nightblade': 'Alteration, Destruction, Evasion, Lockpicking, One-Handed, Restoration', 
+        'Pilgrim': 'Block, Illusion, Evasion, One-Handed, Smithing, Speechcraft', 
+        'Scout': 'Alchemy, Evasion, Marksman, One-Handed, Smithing, Sneak', 
+        'Sorcerer': 'Alteration, Conjuration, Destruction, Enchanting, Heavy Armor, Restoration', 
+        'Spellsword': 'Alteration, Destruction, Heavy Armor, Illusion, One-Handed, Restoration', 
+        'Thief': 'Alchemy, Evasion, Lockpicking, Pickpocket, Sneak, Speechcraft', 
+        'Warrior': 'Block, Heavy Armor, Marksman, One-Handed, Smithing, Two-Handed', 
+        'Witchhunter': 'Alchemy, Destruction, Lockpicking, Marksman, One-Handed, Sneak'
+        }
 
-races = ["Altmer", "Argonian", "Bosmer", "Breton", "Dunmer", "Imperial", "Khajiit", "Nord", "Orc", "Redguard"]
-startingLocations = ["Dawnstar", "Falkreath", "Markarth", "Riften", "Solitude", "Whiterun", "Windhelm", "Winterhold"]
+    moralities = ["Never", "Occasional", "Habitual"]
+    
+    def __init__(self, selector):
+        def logical_build():
+            self.race = self.races[r.randint(0, len(self.races) - 1)]
+            self.startinglocation = self.startinglocations[r.randint(0, len(self.startinglocations) - 1)]
+            self.divine = self.divines[r.randint(0, len(self.divines) - 1)]
+            self.civilwar = self.civilwars[r.randint(0, len(self.civilwars) - 1)]
+            self.dawnguard = self.dawnguards[r.randint(0, len(self.dawnguards) - 1)]
+            self.skills = self.backgrounds[list(self.backgrounds.keys())[r.randint(0, len(list(self.backgrounds.keys())) - 1)]]
+            self.murder = self.moralities[r.randint(0, len(self.moralities) - 1)]
+            self.theft = self.moralities[r.randint(0, len(self.moralities) - 1)]
 
-armours = ["Evasion", "Heavy Armour", "Alteration + Illusion (mage armor + blur)"]
+        def customized_build():
+            #TODO
+            pass
 
-warriorStones = ["The Lady", "The Lord", "The Steed", "The Warrior"]
-warriorCombatSkills = ["Marksman", "Block", "One Handed", "Two Handed"]
+        d = {0 : logical_build, 1 : customized_build}
+        d[selector]()
 
-mageSkills = ["Alteration", "Conjuration", "Destruction", "Illusion", "Restoration"]
-mageStones = ["The Apprentice", "The Atronach", "The Mage", "The Ritual"]
+test = CharacterBuild(0)
 
-nonCombatSkills = ["Alchemy", "Enchanting", "Lockpicking", "Pickpocket", "Smithing", "Speech"]
-thiefStones = ["The Lover", "The Shadow", "The Thief", "The Tower"]
-
-combatSkills = [warriorCombatSkills, mageSkills]
-skills = [combatSkills, nonCombatSkills]
-
-stones = [warriorStones, mageStones, thiefStones, "The Serpent"]
-factions = ["College of Winterhold", "The Companions", "The Thieves Guild", "The Dark Brotherhood", "The Bard's College"]
-civilwar = ["Stormcloaks", "Imperial"]
-dawnguard = ["Volkihar Clan", "Dawnguard"]
-morality = ["Never", "Occasional", "Habitual"] #don't forget to do this twice (for theft and murder)
-
-completelyRandom = input("0 if you want a more logical build or 1 for completely random build.\n")
-
-myBuild = CharacterBuild(completelyRandom)
-for attribute in vars(myBuild):
-    print(attribute + " : " + str(vars(myBuild)[attribute]))
+for x in test.__dict__:
+    print(str(x) + ": " + str(test.__dict__[x]))
