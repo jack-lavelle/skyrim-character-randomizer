@@ -3,6 +3,8 @@
 
 #Simply copy and paste this into an online python console (https://www.programiz.com/python-programming/online-compiler/) and follow the prompts. More features
 #will be added as time goes on.
+
+#Can also run from command-line with: "python -c 'import prototype as p; p.main()'"
 import random as r
 
 class CharacterBuild:
@@ -69,7 +71,9 @@ class CharacterBuild:
         d = {0 : logical_build, 1 : customized_build}
         d[selector]()
 
-test = CharacterBuild(0)
 
-for x in test.__dict__:
-    print(str(x) + ": " + str(test.__dict__[x]))
+def main():
+    test = CharacterBuild(0)
+
+    for x in test.__dict__:
+        print(str(x) + ": " + str(test.__dict__[x]))
