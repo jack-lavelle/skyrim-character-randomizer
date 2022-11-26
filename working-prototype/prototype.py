@@ -6,6 +6,11 @@
 
 #Can also run from command-line with: "python -c 'import prototype as p; p.main()'"
 import random as r
+import names as n
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class CharacterBuild:
     races = ["Altmer", "Argonian", "Bosmer", "Breton", "Dunmer", "Imperial", "Khajiit", "Nord", "Orc", "Redguard"]
@@ -73,7 +78,9 @@ class CharacterBuild:
     def __init__(self, selector):
         def logical_build():
             self.race = self.races[r.randint(0, len(self.races) - 1)]
-            self.startinglocation = self.startinglocations[r.randint(0, len(self.startinglocations) - 1)]
+            self.name = n.nameGenClass(self.race.lower())
+            self.sex = ''.join(r.sample(["male", "female"], 1))
+            self.startinglocation = str(self.startinglocations[r.randint(0, len(self.startinglocations) - 1)]) + ''.join(r.sample([" surviving the wilds", " in an inn"], 1))
             self.divine = self.divines[r.randint(0, len(self.divines) - 1)]
             self.civilwar = self.civilwars[r.randint(0, len(self.civilwars) - 1)]
             self.dawnguard = self.dawnguards[r.randint(0, len(self.dawnguards) - 1)]
@@ -90,10 +97,8 @@ class CharacterBuild:
             #TODO
             pass
 
-
         d = {0 : logical_build, 1 : customized_build}
         d[selector]()
-
 
 def main():
     test = CharacterBuild(0)
