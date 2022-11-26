@@ -47,6 +47,27 @@ class CharacterBuild:
         'Witchhunter': 'Alchemy, Destruction, Lockpicking, Marksman, One-Handed, Sneak'
         }
 
+    backgroundStonesMap = {
+        'Agent': r.sample([r.sample(thiefStones, 1), r.sample(warriorStones, 1)], 1)[0][0], 
+        'Acrobat': r.sample([r.sample(thiefStones, 1), r.sample(warriorStones, 1)], 1)[0][0], 
+        'Assassin': r.sample([r.sample(thiefStones, 1), r.sample(warriorStones, 1)], 1)[0][0], 
+        'Barbarian': r.sample(warriorStones, 1)[0], 
+        'Bard': r.sample(warriorStones, 1)[0], 
+        'Battlemage': r.sample([r.sample(mageStones, 1), r.sample(warriorStones, 1)], 1)[0][0], 
+        'Crusader': r.sample([r.sample(mageStones, 1), r.sample(warriorStones, 1)], 1)[0][0], 
+        'Healer': r.sample(mageStones, 1)[0], 
+        'Knight': r.sample([r.sample(mageStones, 1), r.sample(warriorStones, 1)], 1)[0][0], 
+        'Monk': r.sample([r.sample(mageStones, 1), r.sample(warriorStones, 1), r.sample(thiefStones, 1)], 1)[0][0], 
+        'Nightblade': r.sample([r.sample(mageStones, 1), r.sample(warriorStones, 1)], 1)[0][0], 
+        'Pilgrim': r.sample(warriorStones, 1)[0], 
+        'Scout': r.sample(warriorStones, 1)[0], 
+        'Sorcerer': r.sample(mageStones, 1)[0], 
+        'Spellsword': r.sample([r.sample(mageStones, 1), r.sample(warriorStones, 1)], 1)[0][0], 
+        'Thief': r.sample(thiefStones, 1)[0], 
+        'Warrior': r.sample(warriorStones, 1)[0], 
+        'Witchhunter': r.sample([r.sample(mageStones, 1), r.sample(warriorStones, 1)], 1)[0][0]
+        }
+    
     moralities = ["Never", "Occasional", "Habitual"]
     
     def __init__(self, selector):
@@ -56,12 +77,14 @@ class CharacterBuild:
             self.divine = self.divines[r.randint(0, len(self.divines) - 1)]
             self.civilwar = self.civilwars[r.randint(0, len(self.civilwars) - 1)]
             self.dawnguard = self.dawnguards[r.randint(0, len(self.dawnguards) - 1)]
-            self.murder = self.moralities[r.randint(0, len(self.moralities) - 1)]
-            self.theft = self.moralities[r.randint(0, len(self.moralities) - 1)]
+            self.alignment = ''.join([r.sample(["Lawful", "Neutral", "Chaotic"], 1)[0], " ", r.sample(["Good", "Neutral", "Evil"], 1)[0]])
+            #self.murder = self.moralities[r.randint(0, len(self.moralities) - 1)]
+            #self.theft = self.moralities[r.randint(0, len(self.moralities) - 1)]
 
             randomint = r.randint(0, len(list(self.backgrounds.keys())) - 1)
             self.background = list(self.backgrounds.keys())[randomint]
             self.skills = self.backgrounds[list(self.backgrounds.keys())[randomint]]
+            self.stone = self.backgroundStonesMap[self.background]           
 
         def customized_build():
             #TODO
