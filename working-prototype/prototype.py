@@ -54,13 +54,17 @@ class CharacterBuild:
             self.divine = self.divines[r.randint(0, len(self.divines) - 1)]
             self.civilwar = self.civilwars[r.randint(0, len(self.civilwars) - 1)]
             self.dawnguard = self.dawnguards[r.randint(0, len(self.dawnguards) - 1)]
-            self.skills = self.backgrounds[list(self.backgrounds.keys())[r.randint(0, len(list(self.backgrounds.keys())) - 1)]]
             self.murder = self.moralities[r.randint(0, len(self.moralities) - 1)]
             self.theft = self.moralities[r.randint(0, len(self.moralities) - 1)]
+
+            randomint = r.randint(0, len(list(self.backgrounds.keys())) - 1)
+            self.background = list(self.backgrounds.keys())[randomint]
+            self.skills = self.backgrounds[list(self.backgrounds.keys())[randomint]]
 
         def customized_build():
             #TODO
             pass
+
 
         d = {0 : logical_build, 1 : customized_build}
         d[selector]()
