@@ -40,7 +40,7 @@ class CharacterBuild:
         'Thief': 'Alchemy, Evasion, Lockpicking, Pickpocket, Sneak, Speechcraft', 
         'Warrior': 'Block, Heavy Armor, Marksman, One-Handed, Smithing, Two-Handed', 
         'Witchhunter': 'Alchemy, Destruction, Lockpicking, Marksman, One-Handed, Sneak'
-        }
+    }
 
     backgroundStonesMap = {
         'Agent': r.sample([r.sample(thiefStones, 1), r.sample(warriorStones, 1)], 1)[0][0], 
@@ -61,7 +61,7 @@ class CharacterBuild:
         'Thief': r.sample(thiefStones, 1)[0], 
         'Warrior': r.sample(warriorStones, 1)[0], 
         'Witchhunter': r.sample([r.sample(mageStones, 1), r.sample(warriorStones, 1)], 1)[0][0]
-        }
+    }
     
     moralities = ["Never", "Occasional", "Habitual"]
     
