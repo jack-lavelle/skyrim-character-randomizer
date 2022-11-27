@@ -1,16 +1,6 @@
-#This is made to be completely self-contained despite breaking code organization norms. Until I have made a website proper, this will be copied and pasted into an online python 
-#console.
-
-#Simply copy and paste this into an online python console (https://www.programiz.com/python-programming/online-compiler/) and follow the prompts. More features
-#will be added as time goes on.
-
-#Can also run from command-line with: "python -c 'import prototype as p; p.main()'"
+#Run from command-line with: "python -c 'import prototype as p; p.main()'"
 import random as r
 import names as n
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 class CharacterBuild:
     races = ["Altmer", "Argonian", "Bosmer", "Breton", "Dunmer", "Imperial", "Khajiit", "Nord", "Orc", "Redguard"]
@@ -79,14 +69,12 @@ class CharacterBuild:
         def logical_build():
             self.race = self.races[r.randint(0, len(self.races) - 1)]
             self.name = n.nameGenClass(self.race.lower())
-            self.sex = ''.join(r.sample(["male", "female"], 1))
-            self.startinglocation = str(self.startinglocations[r.randint(0, len(self.startinglocations) - 1)]) + ''.join(r.sample([" surviving the wilds", " in an inn"], 1))
+            self.sex = ''.join(r.sample(["Male", "Female"], 1))
+            self.startinglocation = str(self.startinglocations[r.randint(0, len(self.startinglocations) - 1)]) + ''.join(r.sample([" Surviving the Wilds", " in an Inn"], 1))
             self.divine = self.divines[r.randint(0, len(self.divines) - 1)]
             self.civilwar = self.civilwars[r.randint(0, len(self.civilwars) - 1)]
             self.dawnguard = self.dawnguards[r.randint(0, len(self.dawnguards) - 1)]
             self.alignment = ''.join([r.sample(["Lawful", "Neutral", "Chaotic"], 1)[0], " ", r.sample(["Good", "Neutral", "Evil"], 1)[0]])
-            #self.murder = self.moralities[r.randint(0, len(self.moralities) - 1)]
-            #self.theft = self.moralities[r.randint(0, len(self.moralities) - 1)]
 
             randomint = r.randint(0, len(list(self.backgrounds.keys())) - 1)
             self.background = list(self.backgrounds.keys())[randomint]
@@ -100,7 +88,7 @@ class CharacterBuild:
         d = {0 : logical_build, 1 : customized_build}
         d[selector]()
 
-def main():
+def workbench():
     test = CharacterBuild(0)
 
     for x in test.__dict__:
