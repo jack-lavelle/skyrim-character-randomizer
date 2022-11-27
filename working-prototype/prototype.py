@@ -67,19 +67,19 @@ class CharacterBuild:
     
     def __init__(self, selector):
         def logical_build():
-            self.race = self.races[r.randint(0, len(self.races) - 1)]
-            self.name = n.nameGenClass(self.race.lower())
+            randomint = r.randint(0, len(list(self.backgrounds.keys())) - 1)
             self.sex = ''.join(r.sample(["Male", "Female"], 1))
-            self.startinglocation = str(self.startinglocations[r.randint(0, len(self.startinglocations) - 1)]) + ''.join(r.sample([" Surviving the Wilds", " in an Inn"], 1))
+            self.background = list(self.backgrounds.keys())[randomint]
+            self.stone = self.backgroundStonesMap[self.background]
+            self.race = self.races[r.randint(0, len(self.races) - 1)]
+            self.location = str(self.startinglocations[r.randint(0, len(self.startinglocations) - 1)]) + ''.join(r.sample([" Surviving the Wilds", " in an Inn"], 1))
+            self.name = n.nameGen(self.race.lower())
             self.divine = self.divines[r.randint(0, len(self.divines) - 1)]
             self.civilwar = self.civilwars[r.randint(0, len(self.civilwars) - 1)]
             self.dawnguard = self.dawnguards[r.randint(0, len(self.dawnguards) - 1)]
             self.alignment = ''.join([r.sample(["Lawful", "Neutral", "Chaotic"], 1)[0], " ", r.sample(["Good", "Neutral", "Evil"], 1)[0]])
-
-            randomint = r.randint(0, len(list(self.backgrounds.keys())) - 1)
-            self.background = list(self.backgrounds.keys())[randomint]
             self.skills = self.backgrounds[list(self.backgrounds.keys())[randomint]]
-            self.stone = self.backgroundStonesMap[self.background]           
+                    
 
         def customized_build():
             #TODO
