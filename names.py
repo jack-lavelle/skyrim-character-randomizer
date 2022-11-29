@@ -3,11 +3,13 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.wait import WebDriverWait
 import os
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 
-PATH = os.path("chromedriver")
+PATH = "chromedriver"
 
 def nameGen(race):
-    driver = webdriver.Chrome(PATH)
+    driver = webdriver.Chrome(ChromeDriverManager().install())
     driver.minimize_window()
 
     if race == "Orc":
