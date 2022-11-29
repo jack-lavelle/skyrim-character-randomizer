@@ -2,8 +2,9 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.wait import WebDriverWait
+import os
 
-PATH = "chromedriver"
+PATH = os.path("chromedriver")
 
 def nameGen(race):
     driver = webdriver.Chrome(PATH)
