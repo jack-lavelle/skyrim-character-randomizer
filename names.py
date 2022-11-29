@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.wait import WebDriverWait
 
-PATH = "C:\\Workspace\\tools\\chromedriver.exe"
+PATH = "chromedriver"
 
 def nameGen(race):
     driver = webdriver.Chrome(PATH)
