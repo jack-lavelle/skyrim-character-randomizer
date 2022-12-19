@@ -1,4 +1,8 @@
 #Run from command-line with: "python -c 'import prototype as p; p.main()'"
+#TODO: If divine == talos then stormcloak
+#TODO: weapons specialization
+#TODO: If alignment good then dawnguard
+#TODO: home province
 import random as r
 import names as n
 
@@ -73,7 +77,7 @@ class CharacterBuild:
             self.stone = self.backgroundStonesMap[self.background]
             self.race = self.races[r.randint(0, len(self.races) - 1)]
             self.location = str(self.startinglocations[r.randint(0, len(self.startinglocations) - 1)]) + ''.join(r.sample([" Surviving the Wilds", " in an Inn"], 1))
-            self.name = n.nameGen(self.race.lower())
+            self.name = n.nameGen(self.race.lower())[0]
             self.divine = self.divines[r.randint(0, len(self.divines) - 1)]
             self.civilwar = self.civilwars[r.randint(0, len(self.civilwars) - 1)]
             self.dawnguard = self.dawnguards[r.randint(0, len(self.dawnguards) - 1)]
@@ -88,7 +92,7 @@ class CharacterBuild:
         d = {0 : logical_build, 1 : customized_build}
         d[selector]()
 
-def workbench():
+def characterGen():
     test = CharacterBuild(0)
 
     for x in test.__dict__:
