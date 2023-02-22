@@ -1,5 +1,5 @@
 from flask import Flask
-from prototype import CharacterBuild
+from CharacterBuild import CharacterBuild
 app = Flask(__name__)
 
 @app.route("/")

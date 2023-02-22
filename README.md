@@ -1,3 +1,4 @@
+# TODO: update this (as of 2/22/23 STILL NOT UPDATED)
 # skyrim-character-randomizer
 [Temporary ReadMe ... Updated 10/17/22]
 
