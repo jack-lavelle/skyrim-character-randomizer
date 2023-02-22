@@ -103,10 +103,7 @@ class CharacterBuild:
         d = {0 : logical_build, 1 : customized_build}
         d[selector]()
 
-def characterGen():
-    test = CharacterBuild(0)
+def characterDictGen():
+    myCharacter = CharacterBuild(0)
 
-    for x in test.__dict__:
-        print(str(x) + ": " + str(test.__dict__[x]))
-        
-characterGen()
+    return myCharacter.__dict__
