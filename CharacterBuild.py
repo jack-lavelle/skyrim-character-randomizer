@@ -3,6 +3,7 @@
 #TODO: weapons specialization
 #TODO: If alignment good then dawnguard
 #TODO: home province
+#TODO: religion and alignment
 import random as r
 import json
 import ast
@@ -72,6 +73,7 @@ class CharacterBuild:
         
     def getName(self, race):
         #TODO: remove the need for this complicated name business
+        #TODO: pythondoc
         with open("sample_names.json") as names_input:
             names = json.load(names_input)
         l = []
@@ -79,6 +81,17 @@ class CharacterBuild:
             l.append(ast.literal_eval(nameList))
             
         return l[r.randint(0, len(l) - 1)][r.randint(0, len(l) - 1)]
+    
+    def getTraits(self):
+        #TODO: pythondoc
+        traits = []
+        with open("traits.json") as json_data:
+            traitsList = json.load(json_data)["traits"]
+        
+        for i in range(4):
+            traits.append(r.choice(traitsList))
+        
+        return ', '.join(traits)
     
     def __init__(self, selector):
         def logical_build():
@@ -94,7 +107,7 @@ class CharacterBuild:
             self.dawnguard = self.dawnguards[r.randint(0, len(self.dawnguards) - 1)]
             self.alignment = ''.join([r.sample(["Lawful", "Neutral", "Chaotic"], 1)[0], " ", r.sample(["Good", "Neutral", "Evil"], 1)[0]])
             self.skills = self.backgrounds[list(self.backgrounds.keys())[randomint]]
-                    
+            self.traits = self.getTraits()
 
         def customized_build():
             #TODO
@@ -107,3 +120,5 @@ def characterDictGen():
     myCharacter = CharacterBuild(0)
 
     return myCharacter.__dict__
+
+print(characterDictGen())

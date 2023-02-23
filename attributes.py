@@ -16,3 +16,5 @@ factions = ["College of Winterhold", "The Companions", "The Thieves Guild", "The
 questlines = [["Stormcloaks", "Imperial"], ["Volkihar Clan", "Dawnguard"]]
 morality = ["Never", "Occasional", "Habitual"] #don't forget to do this twice (for theft and murder)
 startingLocation = ["Dawnstar", "Falkreath", "Markarth", "Riften", "Solitude", "Whiterun", "Windhelm", "Winterhold"]
+
+traits = []
