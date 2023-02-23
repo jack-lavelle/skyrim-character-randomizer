@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template
+from flask import render_template_string
 import CharacterBuild
 import pandas as pd
 app = Flask(__name__)
@@ -10,7 +10,7 @@ def home():
 	myCharacterDict = CharacterBuild.characterDictGen()
 	df = pd.DataFrame(data=myCharacterDict.items())
 	
-	return render_template('temp.html',  tables=[df.to_html(classes='data')], titles=df.columns.values)
+	return render_template_string(df.to_html())
 
 if __name__ == "__main__":
 	app.run()
