@@ -4,6 +4,9 @@
 #TODO: If alignment good then dawnguard
 #TODO: home province
 #TODO: religion and alignment
+#TODO: DiD-ify skills
+#TODO: look over Reddit post for ideas / refinements
+#TODO: reference openAI chat for good backstory ... include query.
 import random as r
 import json
 import ast
@@ -16,6 +19,10 @@ class CharacterBuild:
     factions = ["College of Winterhold", "The Companions", "The Thieves Guild", "The Dark Brotherhood", "The Bard's College"]
     civilwars = ["Stormcloaks", "Imperial"]
     dawnguards = ["Volkihar Clan", "Dawnguard"]
+    
+    earlyEnemies = ['horkers', 'skeevers', 'mudcrabs', 'slaughterfish', 'bears', 'witches', 'wolves', 'bandits', 'human forsworn', 'humanoid skeletons', 'baby frostbite spiders']
+    midgameEnemies = ['guards', 'soldiers', 'draugr', 'hagravens', 'trolls', 'icewraiths', 'spiders', 'mammoths', 'fireatronachs', 'frostatronachs']
+    endgameEnemies = ['giants', 'vampires', 'mages', 'dragons', 'falmer', 'dwemer automatons', 'werewolves', 'dragonpriests', 'daedra', 'elitesoldiers']  
 
     warriorStones = ["The Lady", "The Lord", "The Steed", "The Warrior"]
     mageStones = ["The Apprentice", "The Atronach", "The Mage", "The Ritual"]
