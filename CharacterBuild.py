@@ -202,6 +202,13 @@ class Character:
     def get_character_dict(self):
         return self.__dict__
 
+    def get_character_string_list(self):
+        strings = []
+        for x, y in self.__dict__.items():
+            strings.append(x.capitalize() + " : " + y)
+
+        return strings
+
 
 with open("sample_names.json") as names_input:
     namesDict = json.load(names_input)
@@ -291,12 +298,10 @@ backgroundSignMap = {
 
 def random_character_test():
     character = Character("random", None)
-    print(json.dumps(character.get_character_dict(), indent=4))
+    print(json.dumps(character.get_character_string_list(), indent=4))
 
 
-random_character_test()
-
-testDict = {
+test_dict = {
     "background": "Bard"
 }
 
@@ -306,4 +311,4 @@ def semi_random_character_test(testDict):
     print(json.dumps(character.get_character_dict(), indent=4))
 
 
-semi_random_character_test(testDict)
+random_character_test()
