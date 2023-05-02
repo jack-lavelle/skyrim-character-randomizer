@@ -1,6 +1,6 @@
 #parent {
     width: 600px;
-    height: 600px;
+    height: 525px;
     position: absolute;
     /*it can be fixed too*/
     left: 0;
@@ -19,4 +19,14 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+
+  input[type=checkbox] {
+    vertical-align: middle;
+    float: right;
+  }
+  
+  .center-block {
+    margin: auto;
+    display: block;
   }

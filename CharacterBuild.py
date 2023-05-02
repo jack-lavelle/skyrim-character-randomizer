@@ -209,6 +209,13 @@ class Character:
 
         return strings
 
+    def get_character_string_dictionary_list(self):
+        strings_keyvalues = []
+        for x, y in self.__dict__.items():
+            strings_keyvalues.append((x.capitalize() + " : " + y, {x: y}))
+
+        return strings_keyvalues
+
 
 with open("sample_names.json") as names_input:
     namesDict = json.load(names_input)
@@ -309,6 +316,3 @@ test_dict = {
 def semi_random_character_test(testDict):
     character = Character("semi-random", testDict)
     print(json.dumps(character.get_character_dict(), indent=4))
-
-
-random_character_test()
