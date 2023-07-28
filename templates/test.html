@@ -6,7 +6,7 @@
     <style>
       /* set the background image */
       body {
-        background-image: url("https://rare-gallery.com/mocahbig/440478-Amanieu-Rebu-ArtStation-The-Elder-Scrolls-V-Skyrim.jpg");
+        background-image: url("../static/background.jpg");
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: cover;
@@ -33,12 +33,21 @@
         {% for strings_keyvalues_list in data %}
         <tr>
           <td>
+            {% if strings_keyvalues_list[2] == 0 %}
             {{strings_keyvalues_list[0]}}
             <input
               type="checkbox"
               name="saved_property"
               value="{{strings_keyvalues_list[1]}}"
             />
+            {% else %} {{strings_keyvalues_list[0]}}
+            <input
+              type="checkbox"
+              name="saved_property"
+              value="{{strings_keyvalues_list[1]}}"
+              checked
+            />
+            {% endif %}
           </td>
         </tr>
         {% endfor %}

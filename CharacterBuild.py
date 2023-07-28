@@ -13,6 +13,8 @@ import ast
 
 
 class Character:
+    previously_checked_properties = []
+
     def __init__(self, build_type: str, properties: dict):
         self.name = None
         self.sex = None
@@ -30,9 +32,19 @@ class Character:
         self.traits = None
 
         def gen_province() -> str:
-            return r.choice(["Black Marsh", "Cyrodiil", "Elsweyr", "Hammerfell",
-                             "High Rock", "Morrowind", "Skyrim", "Summerset Isles",
-                             "Valenwood"])
+            return r.choice(
+                [
+                    "Black Marsh",
+                    "Cyrodiil",
+                    "Elsweyr",
+                    "Hammerfell",
+                    "High Rock",
+                    "Morrowind",
+                    "Skyrim",
+                    "Summerset Isles",
+                    "Valenwood",
+                ]
+            )
 
         def gen_race() -> str:
             return r.choice(races)
@@ -53,15 +65,16 @@ class Character:
             return backgrounds[self.background]
 
         def gen_location() -> str:
-            return r.choice(["Surviving the Wilds in ", "In an inn in "]) + r.choice(startinglocations)
+            return r.choice(["Surviving the Wilds in ", "In an inn in "]) + r.choice(
+                startinglocations
+            )
 
         def gen_name() -> str:
             raw_race_names = []
             for name_list in namesDict[self.race]:
                 raw_race_names.append(ast.literal_eval(name_list))
 
-            race_names = [
-                item for sublist in raw_race_names for item in sublist]
+            race_names = [item for sublist in raw_race_names for item in sublist]
             return r.choice(race_names)
 
         def gen_stone() -> str:
@@ -74,11 +87,14 @@ class Character:
 
         def gen_alignment() -> str:
             if self.divine in divines:
-                return r.choice(["Lawful", "Neutral", "Chaotic"]) + r.choice([" Good", " Neutral"])
+                return r.choice(["Lawful", "Neutral", "Chaotic"]) + r.choice(
+                    [" Good", " Neutral"]
+                )
             if self.divine in daedra:
                 return r.choice(["Lawful", "Neutral", "Chaotic"]) + " Evil"
-            return r.choice(["Lawful", "Neutral", "Chaotic"]) + r.choice([" Good", " Neutral",
-                                                                          " Evil"])
+            return r.choice(["Lawful", "Neutral", "Chaotic"]) + r.choice(
+                [" Good", " Neutral", " Evil"]
+            )
 
         def gen_traits():
             traits = []
@@ -88,7 +104,7 @@ class Character:
             for i in range(3):
                 traits.append(r.choice(traits_list))
 
-            return ', '.join(traits) + ", and " + r.choice(traits_list)
+            return ", ".join(traits) + ", and " + r.choice(traits_list)
 
         def gen_divine():
             total_divines = divines + daedra
@@ -193,6 +209,7 @@ class Character:
         def semi_random_build(properties: dict):
             for field in property_gen_map.keys():
                 if field in properties:
+                    self.previously_checked_properties.append(field)
                     property_set_map[field](properties[field])
                 else:
                     property_set_map[field](property_gen_map[field]())
@@ -212,7 +229,10 @@ class Character:
     def get_character_string_dictionary_list(self):
         strings_keyvalues = []
         for x, y in self.__dict__.items():
-            strings_keyvalues.append((x.capitalize() + " : " + y, {x: y}))
+            checked_bool = False
+            if x in self.previously_checked_properties:
+                checked_bool = True
+            strings_keyvalues.append((x.capitalize() + " : " + y, {x: y}, checked_bool))
 
         return strings_keyvalues
 
@@ -220,27 +240,90 @@ class Character:
 with open("sample_names.json") as names_input:
     namesDict = json.load(names_input)
 
-races = ["Altmer", "Argonian", "Bosmer", "Breton", "Dunmer",
-         "Imperial", "Khajiit", "Nord", "Orc", "Redguard"]
+races = [
+    "Altmer",
+    "Argonian",
+    "Bosmer",
+    "Breton",
+    "Dunmer",
+    "Imperial",
+    "Khajiit",
+    "Nord",
+    "Orc",
+    "Redguard",
+]
 sexes = ["Male", "Female"]
-startinglocations = ["Dawnstar", "Falkreath", "Markarth",
-                     "Riften", "Solitude", "Whiterun", "Windhelm", "Winterhold"]
-divines = ["Akatosh", "Arkay", "Dibella", "Julianos", "Kynareth",
-           "Mara", "Stendarr", "Talos", "Zenithar", "Auriel"]
+startinglocations = [
+    "Dawnstar",
+    "Falkreath",
+    "Markarth",
+    "Riften",
+    "Solitude",
+    "Whiterun",
+    "Windhelm",
+    "Winterhold",
+]
+divines = [
+    "Akatosh",
+    "Arkay",
+    "Dibella",
+    "Julianos",
+    "Kynareth",
+    "Mara",
+    "Stendarr",
+    "Talos",
+    "Zenithar",
+    "Auriel",
+]
 daedra = ["Azura", "Boethiah", "Mephala", "Nocturnal"]
 
-factions = ["College of Winterhold", "The Companions",
-            "The Thieves Guild", "The Dark Brotherhood", "The Bard's College"]
+factions = [
+    "College of Winterhold",
+    "The Companions",
+    "The Thieves Guild",
+    "The Dark Brotherhood",
+    "The Bard's College",
+]
 civilwars = ["Stormcloaks", "Imperial"]
 dawnguards = ["Volkihar Clan", "Dawnguard"]
 
-earlyEnemies = ['horkers', 'skeevers', 'mudcrabs', 'slaughterfish', 'bears', 'witches',
-                'wolves', 'bandits', 'human forsworn', 'humanoid skeletons',
-                'baby frostbite spiders']
-midgameEnemies = ['guards', 'soldiers', 'draugr', 'hagravens', 'trolls',
-                  'icewraiths', 'spiders', 'mammoths', 'fireatronachs', 'frostatronachs']
-endgameEnemies = ['giants', 'vampires', 'mages', 'dragons', 'falmer',
-                  'dwemer automatons', 'werewolves', 'dragonpriests', 'daedra', 'elitesoldiers']
+earlyEnemies = [
+    "horkers",
+    "skeevers",
+    "mudcrabs",
+    "slaughterfish",
+    "bears",
+    "witches",
+    "wolves",
+    "bandits",
+    "human forsworn",
+    "humanoid skeletons",
+    "baby frostbite spiders",
+]
+midgameEnemies = [
+    "guards",
+    "soldiers",
+    "draugr",
+    "hagravens",
+    "trolls",
+    "icewraiths",
+    "spiders",
+    "mammoths",
+    "fireatronachs",
+    "frostatronachs",
+]
+endgameEnemies = [
+    "giants",
+    "vampires",
+    "mages",
+    "dragons",
+    "falmer",
+    "dwemer automatons",
+    "werewolves",
+    "dragonpriests",
+    "daedra",
+    "elitesoldiers",
+]
 
 moralities = ["Never", "Occasional", "Habitual"]
 
@@ -248,58 +331,85 @@ stones = {
     "Warrior": ["The Lady", "The Lord", "The Steed", "The Warrior"],
     "Mage": ["The Apprentice", "The Atronach", "The Mage", "The Ritual"],
     "Thief": ["The Lover", "The Shadow", "The Thief", "The Tower"],
-    "The Serpent": "The Serpent"
+    "The Serpent": "The Serpent",
 }
 
 skills_map = {
-    "Offensive Skills": ["Marksman", "One Handed", "Two Handed", "Conjuration", "Destruction",
-                         "Restoration", "Illusion", "Alchemy", "Enchanting", "Sneak", "Smithing"],
-    "Defensive Skills": ["Block", "Evasion", "Heavy Armour", "Alchemy", "Enchanting", "Alteration",
-                         "Illusion", "Restoration", "Sneak", "Smithing"],
-    "Noncombat-Based Skills": ["Alchemy", "Enchanting", "Lockpicking", "Pickpocket", "Smithing",
-                               "Speech"]
+    "Offensive Skills": [
+        "Marksman",
+        "One Handed",
+        "Two Handed",
+        "Conjuration",
+        "Destruction",
+        "Restoration",
+        "Illusion",
+        "Alchemy",
+        "Enchanting",
+        "Sneak",
+        "Smithing",
+    ],
+    "Defensive Skills": [
+        "Block",
+        "Evasion",
+        "Heavy Armour",
+        "Alchemy",
+        "Enchanting",
+        "Alteration",
+        "Illusion",
+        "Restoration",
+        "Sneak",
+        "Smithing",
+    ],
+    "Noncombat-Based Skills": [
+        "Alchemy",
+        "Enchanting",
+        "Lockpicking",
+        "Pickpocket",
+        "Smithing",
+        "Speech",
+    ],
 }
 
 backgrounds = {
-    'Agent': 'Illusion, Lockpicking, Marksman, One-Handed, Sneak, Speechcraft',
-    'Acrobat': 'Lockpicking, Marksman, One-Handed, Pickpocket, Sneak, Speechcraft',
-    'Assassin': 'Alchemy, Evasion, Lockpicking, Marksman, One-Handed, Sneak',
-    'Barbarian': 'Block, Evasion, Marksman, One-Handed, Smithing, Two-Handed',
-    'Bard': 'Block, Enchanting, Illusion, Evasion, One-Handed, Speechcraft',
-    'Battlemage': 'Alteration, Conjuration, Destruction, Enchanting, Heavy Armor, Two-Handed',
-    'Crusader': 'Alchemy, Block, Destruction, Heavy Armor, One-Handed, Restoration',
-    'Healer': 'Alchemy, Alteration, Destruction, Illusion, Restoration, Speechcraft',
-    'Knight': 'Block, Enchanting, Heavy Armor, One-Handed, Restoration, Speechcraft',
-    'Monk': 'Alteration, Illusion, Lockpicking, Marksman, One-Handed, Sneak',
-    'Nightblade': 'Alteration, Destruction, Evasion, Lockpicking, One-Handed, Restoration',
-    'Pilgrim': 'Block, Illusion, Evasion, One-Handed, Smithing, Speechcraft',
-    'Scout': 'Alchemy, Evasion, Marksman, One-Handed, Smithing, Sneak',
-    'Sorcerer': 'Alteration, Conjuration, Destruction, Enchanting, Heavy Armor, Restoration',
-    'Spellsword': 'Alteration, Destruction, Heavy Armor, Illusion, One-Handed, Restoration',
-    'Thief': 'Alchemy, Evasion, Lockpicking, Pickpocket, Sneak, Speechcraft',
-    'Warrior': 'Block, Heavy Armor, Marksman, One-Handed, Smithing, Two-Handed',
-    'Witchhunter': 'Alchemy, Destruction, Lockpicking, Marksman, One-Handed, Sneak'
+    "Agent": "Illusion, Lockpicking, Marksman, One-Handed, Sneak, Speechcraft",
+    "Acrobat": "Lockpicking, Marksman, One-Handed, Pickpocket, Sneak, Speechcraft",
+    "Assassin": "Alchemy, Evasion, Lockpicking, Marksman, One-Handed, Sneak",
+    "Barbarian": "Block, Evasion, Marksman, One-Handed, Smithing, Two-Handed",
+    "Bard": "Block, Enchanting, Illusion, Evasion, One-Handed, Speechcraft",
+    "Battlemage": "Alteration, Conjuration, Destruction, Enchanting, Heavy Armor, Two-Handed",
+    "Crusader": "Alchemy, Block, Destruction, Heavy Armor, One-Handed, Restoration",
+    "Healer": "Alchemy, Alteration, Destruction, Illusion, Restoration, Speechcraft",
+    "Knight": "Block, Enchanting, Heavy Armor, One-Handed, Restoration, Speechcraft",
+    "Monk": "Alteration, Illusion, Lockpicking, Marksman, One-Handed, Sneak",
+    "Nightblade": "Alteration, Destruction, Evasion, Lockpicking, One-Handed, Restoration",
+    "Pilgrim": "Block, Illusion, Evasion, One-Handed, Smithing, Speechcraft",
+    "Scout": "Alchemy, Evasion, Marksman, One-Handed, Smithing, Sneak",
+    "Sorcerer": "Alteration, Conjuration, Destruction, Enchanting, Heavy Armor, Restoration",
+    "Spellsword": "Alteration, Destruction, Heavy Armor, Illusion, One-Handed, Restoration",
+    "Thief": "Alchemy, Evasion, Lockpicking, Pickpocket, Sneak, Speechcraft",
+    "Warrior": "Block, Heavy Armor, Marksman, One-Handed, Smithing, Two-Handed",
+    "Witchhunter": "Alchemy, Destruction, Lockpicking, Marksman, One-Handed, Sneak",
 }
 
 backgroundSignMap = {
-    'Agent': ["Thief", "Warrior"],
-    'Acrobat': ["Thief", "Warrior"],
-    'Assassin': ["Thief", "Warrior"],
-    'Barbarian': ["Warrior"],
-    'Bard': ["Warrior"],
-    'Battlemage': ["Mage", "Warrior"],
-    'Crusader': ["Mage", "Warrior"],
-    'Healer': ["Mage"],
-    'Knight': ["Mage", "Warrior"],
-    'Monk': ["Mage", "Warrior", "Thief"],
-    'Nightblade': ["Mage", "Warrior"],
-    'Pilgrim': ["Warrior"],
-    'Scout': ["Warrior"],
-    'Sorcerer': ["Mage"],
-    'Spellsword': ["Mage", "Warrior"],
-    'Thief': ["Thief"],
-    'Warrior': ["Warrior"],
-    'Witchhunter': ["Mage", "Warrior"]
+    "Agent": ["Thief", "Warrior"],
+    "Acrobat": ["Thief", "Warrior"],
+    "Assassin": ["Thief", "Warrior"],
+    "Barbarian": ["Warrior"],
+    "Bard": ["Warrior"],
+    "Battlemage": ["Mage", "Warrior"],
+    "Crusader": ["Mage", "Warrior"],
+    "Healer": ["Mage"],
+    "Knight": ["Mage", "Warrior"],
+    "Monk": ["Mage", "Warrior", "Thief"],
+    "Nightblade": ["Mage", "Warrior"],
+    "Pilgrim": ["Warrior"],
+    "Scout": ["Warrior"],
+    "Sorcerer": ["Mage"],
+    "Spellsword": ["Mage", "Warrior"],
+    "Thief": ["Thief"],
+    "Warrior": ["Warrior"],
+    "Witchhunter": ["Mage", "Warrior"],
 }
 
 
@@ -308,9 +418,7 @@ def random_character_test():
     print(json.dumps(character.get_character_string_list(), indent=4))
 
 
-test_dict = {
-    "background": "Bard"
-}
+test_dict = {"background": "Bard"}
 
 
 def semi_random_character_test(testDict):

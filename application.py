@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template, request
 from ast import literal_eval
 import CharacterBuild
+
 app = Flask(__name__)
 
 # TODO : design page and send data using jinja ... think of skyrim background with smooth white curved rectangle in front and then cool font, size, color for the text.
@@ -14,10 +15,12 @@ def main():
     character = CharacterBuild.Character("random", None)
     print(character.get_character_string_dictionary_list())
 
-    return render_template("test.html", data=character.get_character_string_dictionary_list())
+    return render_template(
+        "test.html", data=character.get_character_string_dictionary_list()
+    )
 
 
-@app.route('/handle_data', methods=['POST'])
+@app.route("/handle_data", methods=["POST"])
 def handle_data():
     dict_string_list = request.form.getlist("saved_property")
     d = {}
@@ -26,7 +29,9 @@ def handle_data():
 
     new_character = CharacterBuild.Character("semi-random", d)
 
-    return render_template("test.html", data=new_character.get_character_string_dictionary_list())
+    return render_template(
+        "test.html", data=new_character.get_character_string_dictionary_list()
+    )
 
 
 # This must be commented out for pythonanywhere
