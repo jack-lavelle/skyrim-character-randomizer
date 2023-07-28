@@ -207,12 +207,12 @@ class Character:
         }
 
         def semi_random_build(properties: dict):
-            for field in property_gen_map.keys():
+            for field, value in property_gen_map.items():
                 if field in properties:
                     self.previously_checked_properties.append(field)
                     property_set_map[field](properties[field])
                 else:
-                    property_set_map[field](property_gen_map[field]())
+                    property_set_map[field](value())
 
         semi_random_build(properties)
 
