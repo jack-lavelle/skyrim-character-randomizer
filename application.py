@@ -8,6 +8,7 @@ app = Flask(__name__)
 # TODO : design page and send data using jinja ... think of skyrim background with smooth white curved rectangle in front and then cool font, size, color for the text.
 # TODO : button for completely new character
 # TODO : background changes even if skills are held constant
+# TODO : do I really need another page for handle_data ... condense it into one page.
 
 
 @app.route("/")
@@ -16,21 +17,21 @@ def main():
     print(character.get_character_string_dictionary_list())
 
     return render_template(
-        "test.html", data=character.get_character_string_dictionary_list()
+        "front-page.html", data=character.get_character_string_dictionary_list()
     )
 
 
 @app.route("/handle_data", methods=["POST"])
 def handle_data():
-    dict_string_list = request.form.getlist("saved_property")
+    checked_properties = request.form.getlist("checked_property")
     d = {}
-    for dict_string in dict_string_list:
+    for dict_string in checked_properties:
         d.update(literal_eval(dict_string))
 
     new_character = CharacterBuild.Character("semi-random", d)
 
     return render_template(
-        "test.html", data=new_character.get_character_string_dictionary_list()
+        "front-page.html", data=new_character.get_character_string_dictionary_list()
     )
 
 
