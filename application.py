@@ -3,6 +3,7 @@ from flask import render_template, request
 from ast import literal_eval
 import CharacterBuild
 import attributes
+import attributes
 
 app = Flask(__name__)
 # TODO : button for completely new character
