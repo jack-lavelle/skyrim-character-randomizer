@@ -7,15 +7,19 @@
 # TODO: revamp character generation when manually selecting skills
 # TODO: mid-game character changes
 # TODO: non-random builds
+
+# TODO: rewrite this entire file using the Factory Method pattern.
 import random as r
 import json
 import ast
+import attributes
 
 
 class Character:
     previously_checked_properties = []
 
     def __init__(self, build_type: str, properties: dict):
+        # TODO: WHY DOES THE CONSTRUCTOR HAVE THIS MUCH SHIT???
         self.name = None
         self.sex = None
         self.race = None
@@ -47,10 +51,10 @@ class Character:
             )
 
         def gen_race() -> str:
-            return r.choice(races)
+            return r.choice(attributes.races)
 
         def gen_sex() -> str:
-            return r.choice(sexes)
+            return r.choice(attributes.sexes)
 
         def gen_dragonborn() -> str:
             return r.choice(["Dragonborn", "Not Dragonborn"])
@@ -59,38 +63,42 @@ class Character:
             return r.choice(["Stormcloaks", "Imperials"])
 
         def gen_background() -> str:
-            return r.choice(list(backgrounds.keys()))
+            return r.choice(list(attributes.backgrounds.keys()))
 
         def gen_skills() -> str:
-            return backgrounds[self.background]
+            return attributes.backgrounds[self.background]
 
         def gen_location() -> str:
             return r.choice(["Surviving the Wilds in ", "In an inn in "]) + r.choice(
-                startinglocations
+                attributes.starting_locations
             )
 
         def gen_name() -> str:
             raw_race_names = []
-            for name_list in namesDict[self.race]:
+            for name_list in attributes.names_dict[self.race]:
                 raw_race_names.append(ast.literal_eval(name_list))
 
             race_names = [item for sublist in raw_race_names for item in sublist]
             return r.choice(race_names)
 
         def gen_stone() -> str:
-            return r.choice(stones[r.choice(backgroundSignMap[self.background])])
+            return r.choice(
+                attributes.stones[
+                    r.choice(attributes.background_sign_map[self.background])
+                ]
+            )
 
         def gen_dawnguard() -> str:
-            if self.divine in divines:
+            if self.divine in attributes.divines:
                 return "Dawnguard"
             return r.choice(["Dawnguard", "Vampires"])
 
         def gen_alignment() -> str:
-            if self.divine in divines:
+            if self.divine in attributes.divines:
                 return r.choice(["Lawful", "Neutral", "Chaotic"]) + r.choice(
                     [" Good", " Neutral"]
                 )
-            if self.divine in daedra:
+            if self.divine in attributes.daedra:
                 return r.choice(["Lawful", "Neutral", "Chaotic"]) + " Evil"
             return r.choice(["Lawful", "Neutral", "Chaotic"]) + r.choice(
                 [" Good", " Neutral", " Evil"]
@@ -107,7 +115,7 @@ class Character:
             return ", ".join(traits) + ", and " + r.choice(traits_list)
 
         def gen_divine():
-            total_divines = divines + daedra
+            total_divines = attributes.divines + attributes.daedra
             return r.choice(total_divines)
 
         def random_build():
@@ -206,11 +214,17 @@ class Character:
             "alignment": gen_alignment,
         }
 
-        def semi_random_build(properties: dict):
+        # TODO: I don't like how I am using side-effects like this ... it can be hard to track down
+        # where self.previously_checked_properties changes ... this should be overhauled to be more
+        # clear and concise, function oriented.
+
+        # TODO: This class needs rethinking ... it has too much going on when it should only
+        # contain information about a Character.
+        def semi_random_build(checked_properties: dict):
             for field, value in property_gen_map.items():
-                if field in properties:
+                if field in checked_properties:
                     self.previously_checked_properties.append(field)
-                    property_set_map[field](properties[field])
+                    property_set_map[field](checked_properties[field])
                 else:
                     property_set_map[field](value())
 
@@ -237,182 +251,7 @@ class Character:
         return strings_keyvalues
 
 
-with open("sample_names.json") as names_input:
-    namesDict = json.load(names_input)
-
-races = [
-    "Altmer",
-    "Argonian",
-    "Bosmer",
-    "Breton",
-    "Dunmer",
-    "Imperial",
-    "Khajiit",
-    "Nord",
-    "Orc",
-    "Redguard",
-]
-sexes = ["Male", "Female"]
-startinglocations = [
-    "Dawnstar",
-    "Falkreath",
-    "Markarth",
-    "Riften",
-    "Solitude",
-    "Whiterun",
-    "Windhelm",
-    "Winterhold",
-]
-divines = [
-    "Akatosh",
-    "Arkay",
-    "Dibella",
-    "Julianos",
-    "Kynareth",
-    "Mara",
-    "Stendarr",
-    "Talos",
-    "Zenithar",
-    "Auriel",
-]
-daedra = ["Azura", "Boethiah", "Mephala", "Nocturnal"]
-
-factions = [
-    "College of Winterhold",
-    "The Companions",
-    "The Thieves Guild",
-    "The Dark Brotherhood",
-    "The Bard's College",
-]
-civilwars = ["Stormcloaks", "Imperial"]
-dawnguards = ["Volkihar Clan", "Dawnguard"]
-
-earlyEnemies = [
-    "horkers",
-    "skeevers",
-    "mudcrabs",
-    "slaughterfish",
-    "bears",
-    "witches",
-    "wolves",
-    "bandits",
-    "human forsworn",
-    "humanoid skeletons",
-    "baby frostbite spiders",
-]
-midgameEnemies = [
-    "guards",
-    "soldiers",
-    "draugr",
-    "hagravens",
-    "trolls",
-    "icewraiths",
-    "spiders",
-    "mammoths",
-    "fireatronachs",
-    "frostatronachs",
-]
-endgameEnemies = [
-    "giants",
-    "vampires",
-    "mages",
-    "dragons",
-    "falmer",
-    "dwemer automatons",
-    "werewolves",
-    "dragonpriests",
-    "daedra",
-    "elitesoldiers",
-]
-
-moralities = ["Never", "Occasional", "Habitual"]
-
-stones = {
-    "Warrior": ["The Lady", "The Lord", "The Steed", "The Warrior"],
-    "Mage": ["The Apprentice", "The Atronach", "The Mage", "The Ritual"],
-    "Thief": ["The Lover", "The Shadow", "The Thief", "The Tower"],
-    "The Serpent": "The Serpent",
-}
-
-skills_map = {
-    "Offensive Skills": [
-        "Marksman",
-        "One Handed",
-        "Two Handed",
-        "Conjuration",
-        "Destruction",
-        "Restoration",
-        "Illusion",
-        "Alchemy",
-        "Enchanting",
-        "Sneak",
-        "Smithing",
-    ],
-    "Defensive Skills": [
-        "Block",
-        "Evasion",
-        "Heavy Armour",
-        "Alchemy",
-        "Enchanting",
-        "Alteration",
-        "Illusion",
-        "Restoration",
-        "Sneak",
-        "Smithing",
-    ],
-    "Noncombat-Based Skills": [
-        "Alchemy",
-        "Enchanting",
-        "Lockpicking",
-        "Pickpocket",
-        "Smithing",
-        "Speech",
-    ],
-}
-
-backgrounds = {
-    "Agent": "Illusion, Lockpicking, Marksman, One-Handed, Sneak, Speechcraft",
-    "Acrobat": "Lockpicking, Marksman, One-Handed, Pickpocket, Sneak, Speechcraft",
-    "Assassin": "Alchemy, Evasion, Lockpicking, Marksman, One-Handed, Sneak",
-    "Barbarian": "Block, Evasion, Marksman, One-Handed, Smithing, Two-Handed",
-    "Bard": "Block, Enchanting, Illusion, Evasion, One-Handed, Speechcraft",
-    "Battlemage": "Alteration, Conjuration, Destruction, Enchanting, Heavy Armor, Two-Handed",
-    "Crusader": "Alchemy, Block, Destruction, Heavy Armor, One-Handed, Restoration",
-    "Healer": "Alchemy, Alteration, Destruction, Illusion, Restoration, Speechcraft",
-    "Knight": "Block, Enchanting, Heavy Armor, One-Handed, Restoration, Speechcraft",
-    "Monk": "Alteration, Illusion, Lockpicking, Marksman, One-Handed, Sneak",
-    "Nightblade": "Alteration, Destruction, Evasion, Lockpicking, One-Handed, Restoration",
-    "Pilgrim": "Block, Illusion, Evasion, One-Handed, Smithing, Speechcraft",
-    "Scout": "Alchemy, Evasion, Marksman, One-Handed, Smithing, Sneak",
-    "Sorcerer": "Alteration, Conjuration, Destruction, Enchanting, Heavy Armor, Restoration",
-    "Spellsword": "Alteration, Destruction, Heavy Armor, Illusion, One-Handed, Restoration",
-    "Thief": "Alchemy, Evasion, Lockpicking, Pickpocket, Sneak, Speechcraft",
-    "Warrior": "Block, Heavy Armor, Marksman, One-Handed, Smithing, Two-Handed",
-    "Witchhunter": "Alchemy, Destruction, Lockpicking, Marksman, One-Handed, Sneak",
-}
-
-backgroundSignMap = {
-    "Agent": ["Thief", "Warrior"],
-    "Acrobat": ["Thief", "Warrior"],
-    "Assassin": ["Thief", "Warrior"],
-    "Barbarian": ["Warrior"],
-    "Bard": ["Warrior"],
-    "Battlemage": ["Mage", "Warrior"],
-    "Crusader": ["Mage", "Warrior"],
-    "Healer": ["Mage"],
-    "Knight": ["Mage", "Warrior"],
-    "Monk": ["Mage", "Warrior", "Thief"],
-    "Nightblade": ["Mage", "Warrior"],
-    "Pilgrim": ["Warrior"],
-    "Scout": ["Warrior"],
-    "Sorcerer": ["Mage"],
-    "Spellsword": ["Mage", "Warrior"],
-    "Thief": ["Thief"],
-    "Warrior": ["Warrior"],
-    "Witchhunter": ["Mage", "Warrior"],
-}
-
-
+# TODO: place these tests in a proper unittest file
 def random_character_test():
     character = Character("random", None)
     print(json.dumps(character.get_character_string_list(), indent=4))
