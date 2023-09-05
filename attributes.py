@@ -3,6 +3,33 @@ import json
 with open("sample_names.json") as names_input:
     names_dict = json.load(names_input)
 
+property_keys = [
+    "name",
+    "sex",
+    "race",
+    "background",
+    "stone",
+    "skills",
+    "location",
+    "province",
+    "dragonborn",
+    "civilwar",
+    "divine",
+    "dawnguard",
+    "alignment",
+    "traits",
+]
+
+
+property_dependency_map = {
+    "skills": "background",
+    "name": "race",
+    "stone": "background",
+    "dawnguard": "divine",
+    "alignment": "divine",
+}
+
+
 races = [
     "Altmer",
     "Argonian",

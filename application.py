@@ -13,8 +13,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def main():
-    character = CharacterBuild.Character("random", None)
-    print(character.get_character_string_dictionary_list())
+    character = CharacterBuild.Character({})
 
     return render_template(
         "front-page.html", data=character.get_character_string_dictionary_list()
@@ -28,7 +27,8 @@ def handle_data():
     for dict_string in checked_properties:
         d.update(literal_eval(dict_string))
 
-    new_character = CharacterBuild.Character("semi-random", d)
+    new_character = CharacterBuild.Character(d)
+    new_character.previously_checked_properties = list(d.keys())
 
     return render_template(
         "front-page.html", data=new_character.get_character_string_dictionary_list()
