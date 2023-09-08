@@ -3,82 +3,45 @@
   <head>
     <title>Skyrim Character Generator</title>
     <link rel="stylesheet" href="../static/styles.css" />
-    <style>
-      /* set the background image */
-      body {
-        background-image: url("../static/background.jpg");
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-size: cover;
-      }
-
-      /* style the table */
-      table {
-        width: 100%;
-      }
-
-      td {
-        border: 1px solid black;
-        padding: 5px;
-        text-align: left;
-        width: 50%;
-        background-color: #766d6b;
-      }
-    </style>
   </head>
 
-  <div id="parent">
-    <div>
-      <form action="{{ url_for('handle_data') }}" method="post">
-        <table id="child">
-          {% for strings_keyvalues_list in data %}
-          <tr>
-            <td>
-              {% if strings_keyvalues_list[2] == 0 %}
-              {{strings_keyvalues_list[0]}}
-              <input
-                type="checkbox"
-                name="checked_property"
-                value="{{strings_keyvalues_list[1]}}"
-              />
-              {% else %} {{strings_keyvalues_list[0]}}
-              <input
-                type="checkbox"
-                name="checked_property"
-                value="{{strings_keyvalues_list[1]}}"
-                checked
-              />
-              {% endif %}
-            </td>
-          </tr>
-          {% endfor %}
-        </table>
-  
-        <input
-          type="submit"
-          style="
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-          "
-          value="Create a new character, keeping the selected properties."
-        />
-      </form>
-    </div>
-    <div>
-      <form action="{{ url_for("show_suggestion_page")}}">
-        <input
-        type="submit"
-        style="
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          transform: translateX(-50%);
-        "
-        value="Submit a suggestion to the website! :)"
-      />
-      </form>
+  <div class="outer">
+    <div class="inner">
+      <div class="parent">
+        <form action="{{ url_for('handle_data') }}" method="post">
+          <table class="table">
+            {% for strings_keyvalues_list in data %}
+            <tr>
+              <td>
+                {% if strings_keyvalues_list[2] == 0 %}
+                {{strings_keyvalues_list[0]}}
+                <input
+                  type="checkbox"
+                  name="checked_property"
+                  value="{{strings_keyvalues_list[1]}}"
+                />
+                {% else %} {{strings_keyvalues_list[0]}}
+                <input
+                  type="checkbox"
+                  name="checked_property"
+                  value="{{strings_keyvalues_list[1]}}"
+                  checked
+                />
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </table>
+          <input
+            type="submit"
+            value="Create a new character, keeping the selected properties."
+          />
+        </form>
+      </div>
+      <div class="suggestion-submit">
+        <form action="{{ url_for("show_suggestion_page")}}">
+        <input type="submit" value="Submit a suggestion to the website! :)" />
+      </div>
     </div>
   </div>
 </html>

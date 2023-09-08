@@ -1,39 +1,53 @@
-#parent {
-    width: 600px;
-    height: 575px;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    max-width: 100%;
-    max-height: 100%;
-    overflow: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  #child {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+@import url("https://fonts.googleapis.com/css?family=Poppins&display=swap");
 
-  input[type=checkbox] {
-    vertical-align: middle;
-    float: right;
-  }
-  
-  .center-block {
-    margin: auto;
-    display: block;
-  }
+body {
+  background-image: url("../static/background.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
 
-  .wrap {
-    display:flex;
-    flex-direction: column;
-  }
+table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+input[type="checkbox"] {
+  vertical-align: middle;
+  float: right;
+}
+
+input,
+.table {
+  font-family: "Poppins";
+  vertical-align: middle;
+}
+
+input {
+  margin: 5px 0px;
+}
+
+td {
+  border: 2px solid black;
+  width: 675px;
+  text-align: left;
+  padding: 7px;
+  background-color: #766d6b;
+}
+
+.parent,
+.suggestion-submit {
+  text-align: center;
+}
+
+.outer {
+  display: table;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.inner {
+  display: table-cell;
+  vertical-align: middle;
+}
