@@ -1,23 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Suggestion Box</title>
+    <title>Skyrim Character Generator</title>
+    <link rel="stylesheet" href="../static/styles.css" />
   </head>
   <body>
-    <h1>Suggestion Box</h1>
-    <form method="POST" action="/submit_suggestion">
-      <label for="suggestion">Your Suggestion:</label>
-      <textarea
-        id="suggestion"
-        name="suggestion"
-        rows="4"
-        cols="50"
-        required
-      ></textarea>
-      <br />
-      <input type="submit" value="Submit" />
-    </form>
+    <div class="outer">
+      <div class="inner">
+        <div>
+          <h1>Suggestion Box</h1>
+        </div>
+        <div>
+          <form method="POST" action="/submit_suggestion">
+            <label for="suggestion">Your Suggestion:</label>
+            <textarea
+              id="suggestion"
+              name="suggestion"
+              rows="4"
+              cols="50"
+              required
+            ></textarea>
+            <br />
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

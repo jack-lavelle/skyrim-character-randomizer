@@ -18,6 +18,8 @@ input[type="checkbox"] {
 }
 
 input,
+label,
+h1,
 .table {
   font-family: "Poppins";
   vertical-align: middle;
@@ -50,4 +52,5 @@ td {
 .inner {
   display: table-cell;
   vertical-align: middle;
+  text-align: center;
 }
