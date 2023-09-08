@@ -3,7 +3,7 @@ from flask import render_template, request
 from ast import literal_eval
 import CharacterBuild
 import attributes
-import attributes
+import database
 
 app = Flask(__name__)
 # TODO : button for completely new character
@@ -38,6 +38,22 @@ def handle_data():
 
     return render_template(
         "front-page.html", data=new_character.get_character_string_dictionary_list()
+    )
+
+
+@app.route("/suggestion")
+def show_suggestion_page():
+    return render_template("suggestion.html")
+
+
+@app.route("/submit_suggestion", methods=["POST"])
+def submit_suggestion():
+    suggestion = request.form["suggestion"]
+    database.write_suggestion(suggestion)
+    character = CharacterBuild.Character({})
+
+    return render_template(
+        "front-page.html", data=character.get_character_string_dictionary_list()
     )
 
 

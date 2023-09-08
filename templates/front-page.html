@@ -28,32 +28,47 @@
   </head>
 
   <div id="parent">
-    <form action="{{ url_for('handle_data') }}" method="post">
-      <table id="child">
-        {% for strings_keyvalues_list in data %}
-        <tr>
-          <td>
-            {% if strings_keyvalues_list[2] == 0 %}
-            {{strings_keyvalues_list[0]}}
-            <input
-              type="checkbox"
-              name="checked_property"
-              value="{{strings_keyvalues_list[1]}}"
-            />
-            {% else %} {{strings_keyvalues_list[0]}}
-            <input
-              type="checkbox"
-              name="checked_property"
-              value="{{strings_keyvalues_list[1]}}"
-              checked
-            />
-            {% endif %}
-          </td>
-        </tr>
-        {% endfor %}
-      </table>
-
-      <input
+    <div>
+      <form action="{{ url_for('handle_data') }}" method="post">
+        <table id="child">
+          {% for strings_keyvalues_list in data %}
+          <tr>
+            <td>
+              {% if strings_keyvalues_list[2] == 0 %}
+              {{strings_keyvalues_list[0]}}
+              <input
+                type="checkbox"
+                name="checked_property"
+                value="{{strings_keyvalues_list[1]}}"
+              />
+              {% else %} {{strings_keyvalues_list[0]}}
+              <input
+                type="checkbox"
+                name="checked_property"
+                value="{{strings_keyvalues_list[1]}}"
+                checked
+              />
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+  
+        <input
+          type="submit"
+          style="
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+          "
+          value="Create a new character, keeping the selected properties."
+        />
+      </form>
+    </div>
+    <div>
+      <form action="{{ url_for("show_suggestion_page")}}">
+        <input
         type="submit"
         style="
           position: absolute;
@@ -61,8 +76,9 @@
           left: 50%;
           transform: translateX(-50%);
         "
-        value="Create a new character, keeping the selected properties."
+        value="Submit a suggestion to the website! :)"
       />
-    </form>
+      </form>
+    </div>
   </div>
 </html>
