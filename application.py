@@ -32,6 +32,11 @@ def handle_data():
             list(attributes.backgrounds.values()).index(d["skills"])
         ]
         d["background"] = background_val
+    elif "background" in d:
+        skills_val = list(attributes.backgrounds.values())[
+            list(attributes.backgrounds.keys()).index(d["background"])
+        ]
+        d["skills"] = skills_val
 
     new_character = Character(d)
     new_character.previously_checked_properties = list(d.keys())
