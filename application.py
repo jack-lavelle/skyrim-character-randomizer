@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import render_template, request
 from ast import literal_eval
-import CharacterBuild
+from character import Character
 import attributes
 import database
 
@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def main():
-    character = CharacterBuild.Character({})
+    character = Character({})
 
     return render_template(
         "front-page.html", data=character.get_character_string_dictionary_list()
@@ -33,7 +33,7 @@ def handle_data():
         ]
         d["background"] = background_val
 
-    new_character = CharacterBuild.Character(d)
+    new_character = Character(d)
     new_character.previously_checked_properties = list(d.keys())
 
     return render_template(
@@ -50,7 +50,7 @@ def show_suggestion_page():
 def submit_suggestion():
     suggestion = request.form["suggestion"]
     database.write_suggestion(suggestion)
-    character = CharacterBuild.Character({})
+    character = Character({})
 
     return render_template(
         "front-page.html", data=character.get_character_string_dictionary_list()
