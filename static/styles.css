@@ -14,7 +14,7 @@ body {
 
 table {
   margin-left: auto;
-  margin-right: auto;
+  margin-right: 15px;
 }
 
 input[type="checkbox"] {
@@ -68,6 +68,7 @@ td {
   font-weight: bold;
   font-style: italic;
   margin-top: 15px;
+  overflow: hidden;
 }
 
 .suggestions-ranked {
@@ -126,4 +127,35 @@ td {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
+}
+
+.section-titles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.section-title {
+  background-image: url("../static/parchment.jpg");
+  display: inline-block;
+  font-weight: bold;
+  font-style: normal;
+  font-size: large;
+  margin-bottom: 10px;
+  padding: 5px;
+  border-width: 10px;
+  border-style: solid;
+  border-image: url("../static/rounded-stone-ivy.png") 15%;
+  border-radius: 5px;
+  background-clip: padding-box;
+}
+
+.section-title::after {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  left: -4px;
+  right: -4px;
+  content: "";
+  z-index: -1;
+  border-radius: 16px;
 }

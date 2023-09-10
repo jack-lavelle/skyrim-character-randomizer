@@ -76,4 +76,4 @@ def submit_suggestion():
 # This must be commented out for pythonanywhere
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
