@@ -4,58 +4,60 @@
     <title>Skyrim Character Generator</title>
     <link rel="stylesheet" href="../static/styles.css" />
   </head>
+  <body>
+    <img src="../static/rounded-stone-ivy.png" style="display: none" />
 
-  <div class="outer">
-    <div class="inner">
-      <div class="character-table">
-        <div class="section-title">Character Attributes</div>
-        <form action="{{ url_for('handle_data') }}" method="post">
-          <table class="table">
-            {% for strings_keyvalues_list in character_data %}
-            <tr>
-              <td>
-                {% if strings_keyvalues_list[2] == 0 %}
-                {{strings_keyvalues_list[0]}}
-                <input
-                  type="checkbox"
-                  name="checked_property"
-                  value="{{strings_keyvalues_list[1]}}"
-                />
-                {% else %} {{strings_keyvalues_list[0]}}
-                <input
-                  type="checkbox"
-                  name="checked_property"
-                  value="{{strings_keyvalues_list[1]}}"
-                  checked
-                />
-                {% endif %}
-              </td>
-            </tr>
-            {% endfor %}
-          </table>
-          <input
-            type="submit"
-            value="Create a new character, keeping the selected properties."
-          />
-        </form>
-      </div>
-      <div class="suggestions-area-container">
-        <div class="section-title">Suggestions To Be Implemented</div>
-        <div>
-          <div class="suggestions-ranked">
-            <div class="suggestion-left-top">{{suggestions[0]}}</div>
-            <div class="suggestion-right-top">{{suggestions[1]}}</div>
-            <div class="suggestion-left-bottom">{{suggestions[2]}}</div>
-            <div class="suggestion-right-bottom">{{suggestions[3]}}</div>
-          </div>
+    <div class="outer">
+      <div class="inner">
+        <div class="character-table">
+          <div class="section-title">Character Attributes</div>
+          <form action="{{ url_for('handle_data') }}" method="post">
+            <table class="table">
+              {% for strings_keyvalues_list in character_data %}
+              <tr>
+                <td>
+                  {% if strings_keyvalues_list[2] == 0 %}
+                  {{strings_keyvalues_list[0]}}
+                  <input
+                    type="checkbox"
+                    name="checked_property"
+                    value="{{strings_keyvalues_list[1]}}"
+                  />
+                  {% else %} {{strings_keyvalues_list[0]}}
+                  <input
+                    type="checkbox"
+                    name="checked_property"
+                    value="{{strings_keyvalues_list[1]}}"
+                    checked
+                  />
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </table>
+            <input
+              type="submit"
+              value="Create a new character, keeping the selected properties."
+            />
+          </form>
+        </div>
+        <div class="suggestions-area-container">
+          <div class="section-title">Suggestions To Be Implemented</div>
           <div>
-            <form method="POST" action="/submit_suggestion">
-              <textarea
-                class="suggestion-textarea"
-                onclick="document.getElementById('suggestion').innerHTML='';"
-                id="suggestion"
-                name="suggestion"
-              >
+            <div class="suggestions-ranked">
+              <div class="suggestion-left-top">{{suggestions[0]}}</div>
+              <div class="suggestion-right-top">{{suggestions[1]}}</div>
+              <div class="suggestion-left-bottom">{{suggestions[2]}}</div>
+              <div class="suggestion-right-bottom">{{suggestions[3]}}</div>
+            </div>
+            <div>
+              <form method="POST" action="/submit_suggestion">
+                <textarea
+                  class="suggestion-textarea"
+                  onclick="document.getElementById('suggestion').innerHTML='';"
+                  id="suggestion"
+                  name="suggestion"
+                >
 Your Suggestion Goes Here
 
 Examples:
@@ -63,14 +65,14 @@ Examples:
   - Add custom character builds.
   - Add character backstory generation.
   - Let us save our characters, and view the history.
-                </textarea
-              >
-              <br />
-              <input type="submit" value="Submit your suggestion." />
-            </form>
+                </textarea>
+                <br />
+                <input type="submit" value="Submit your suggestion." />
+              </form>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </body>
 </html>

@@ -92,6 +92,3 @@ def retrieve_first_n_suggestions(n: int):
     conn.close()
 
     return l
-
-
-print(retrieve_first_n_suggestions(4))
