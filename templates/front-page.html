@@ -10,7 +10,7 @@
       <div class="character-table">
         <form action="{{ url_for('handle_data') }}" method="post">
           <table class="table">
-            {% for strings_keyvalues_list in data %}
+            {% for strings_keyvalues_list in character_data %}
             <tr>
               <td>
                 {% if strings_keyvalues_list[2] == 0 %}
@@ -39,13 +39,19 @@
         </form>
       </div>
       <div class="suggestions-area-container">
-        <div></div>
+        <div class="suggestions-ranked">
+          <div class="suggestion-left-top">{{suggestions[0]}}</div>
+          <div class="suggestion-right-top">{{suggestions[1]}}</div>
+          <div class="suggestion-left-bottom">{{suggestions[2]}}</div>
+          <div class="suggestion-right-bottom">{{suggestions[3]}}</div>
+        </div>
         <div>
           <form method="POST" action="/submit_suggestion">
             <textarea
               class="suggestion-textarea"
               onclick="document.getElementById('suggestion').innerHTML='';"
               id="suggestion"
+              name="suggestion"
             >
 Your Suggestion Goes Here
 

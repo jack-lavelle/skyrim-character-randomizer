@@ -13,9 +13,12 @@ app = Flask(__name__)
 @app.route("/")
 def main():
     character = Character({})
+    suggestions = database.retrieve_first_n_suggestions(4)
 
     return render_template(
-        "front-page.html", data=character.get_character_string_dictionary_list()
+        "front-page.html",
+        character_data=character.get_character_string_dictionary_list(),
+        suggestions=suggestions,
     )
 
 
@@ -41,8 +44,12 @@ def handle_data():
     new_character = Character(d)
     new_character.previously_checked_properties = list(d.keys())
 
+    suggestions = database.retrieve_first_n_suggestions(4)
+
     return render_template(
-        "front-page.html", data=new_character.get_character_string_dictionary_list()
+        "front-page.html",
+        data=new_character.get_character_string_dictionary_list(),
+        suggestions=suggestions,
     )
 
 
@@ -55,13 +62,18 @@ def show_suggestion_page():
 def submit_suggestion():
     suggestion = request.form["suggestion"]
     database.write_suggestion(suggestion)
+    # TODO: figure out how to send the same character data rather than create a new one.
     character = Character({})
+    suggestions = database.retrieve_first_n_suggestions(4)
 
     return render_template(
-        "front-page.html", data=character.get_character_string_dictionary_list()
+        "front-page.html",
+        data=character.get_character_string_dictionary_list(),
+        suggestions=suggestions,
     )
 
 
 # This must be commented out for pythonanywhere
+
 if __name__ == "__main__":
     app.run()

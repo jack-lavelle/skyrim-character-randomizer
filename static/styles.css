@@ -47,7 +47,9 @@ td {
 
 .suggestions-area-container {
   display: inline-block;
-  margin-left: 50px;
+  font-weight: bold;
+  font-style: italic;
+  font-size: small;
 }
 
 .suggestion-textarea {
@@ -56,19 +58,61 @@ td {
   background-size: cover;
   background-repeat: no-repeat;
   width: 500px;
-  height: 300px;
+  height: 260px;
   border: 4px solid rgba(51, 35, 0, 0.95);
   border-radius: 25px;
+  color: rgba(0, 0, 0, 0.75);
+  outline: none;
+  padding: 18px;
   font-size: large;
   font-weight: bold;
   font-style: italic;
-  color: rgba(0, 0, 0, 0.75);
-  outline: none;
-  padding: 20px;
+  margin-top: 15px;
 }
 
-.best-suggestions {
+.suggestions-ranked {
+  background-image: url("../static/noticeboard.jpg");
   display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-radius: 10px;
+  width: 500px;
+  height: 350px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  margin: auto;
+}
+
+.suggestion-left-top,
+.suggestion-left-bottom,
+.suggestion-right-top,
+.suggestion-right-bottom {
+  background-image: url("../static/parchment.jpg");
+  height: 135px;
+  width: 175px;
+  margin: auto;
+  border-radius: 15px;
+}
+
+.suggestion-left-top,
+.suggestion-left-bottom {
+  padding: 5px;
+  margin-left: 55px;
+}
+
+.suggestion-right-top,
+.suggestion-right-bottom {
+  padding: 5px;
+  margin-right: 55px;
+}
+
+.suggestion-left-bottom,
+.suggestion-right-bottom {
+  margin-bottom: 20px;
+}
+
+.suggestion-left-top,
+.suggestion-right-top {
+  margin-top: 25px;
 }
 
 .outer {

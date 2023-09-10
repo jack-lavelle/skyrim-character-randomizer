@@ -1,6 +1,5 @@
 # Run from command-line with: "python -c 'import prototype as p; p.main()'"
 # TODO: weapons specialization?
-# TODO: religion and alignment
 # TODO: DiD-ify skills (meaning make them viable for each run)
 # TODO: look over Reddit post for ideas / refinements
 # TODO: reference openAI chat for good backstory ... include query.

@@ -4,7 +4,7 @@ mysql_config = {
     "host": "localhost",
     "user": "root",
     "password": "Sopdoo123!",
-    "database": "skyrim-character-randomizer",
+    "database": "skyrim-character-generator",
 }
 
 
@@ -41,6 +41,7 @@ def create_suggestions_table():
     conn.commit()
     cursor.close()
     conn.close()
+    print("suggestions table successfully created.")
 
 
 def check_database_exists(database_name):
@@ -75,3 +76,22 @@ def check_table_exists(table_name):
         return True
     else:
         return False
+
+
+def retrieve_first_n_suggestions(n: int):
+    conn = mysql.connector.connect(**mysql_config)
+    cursor = conn.cursor()
+
+    query = (
+        f"""SELECT suggestion FROM `skyrim-character-generator`.suggestions LIMIT {n}"""
+    )
+    cursor.execute(query)
+    l = [row[0] for row in cursor]
+
+    cursor.close()
+    conn.close()
+
+    return l
+
+
+print(retrieve_first_n_suggestions(4))
