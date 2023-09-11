@@ -12,6 +12,7 @@ from property_generator import generate_property
 
 
 class Character:
+    # TODO: handle previous_checked_properties in the constructor
     previously_checked_properties = []
 
     def __init__(self, properties: dict):

@@ -45,10 +45,18 @@
           <div class="section-title">Suggestions To Be Implemented</div>
           <div>
             <div class="suggestions-ranked">
-              <div class="suggestion-left-top">{{suggestions[0]}}</div>
-              <div class="suggestion-right-top">{{suggestions[1]}}</div>
-              <div class="suggestion-left-bottom">{{suggestions[2]}}</div>
-              <div class="suggestion-right-bottom">{{suggestions[3]}}</div>
+              <textarea class="suggestion-left-top">
+{{suggestions[0]}}</textarea
+              >
+              <textarea class="suggestion-right-top">
+{{suggestions[1]}}</textarea
+              >
+              <textarea class="suggestion-left-bottom">
+{{suggestions[2]}}</textarea
+              >
+              <textarea class="suggestion-right-bottom">
+{{suggestions[3]}}</textarea
+              >
             </div>
             <div>
               <form method="POST" action="/submit_suggestion">
