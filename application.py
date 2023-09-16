@@ -77,9 +77,3 @@ def selected_properties_character_gen(req):
     character.previously_checked_properties = list(d.keys())
 
     return character
-
-
-# This must be commented out for pythonanywhere
-
-if __name__ == "__main__":
-    app.run(debug=True)
