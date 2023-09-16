@@ -1,10 +1,11 @@
 import mysql.connector
 
+
 mysql_config = {
-    "host": "localhost",
-    "user": "root",
+    "host": "applefrogs.mysql.pythonanywhere-services.com",
+    "user": "applefrogs",
     "password": "Sopdoo123!",
-    "database": "skyrim-character-generator",
+    "database": "applefrogs$skyrim-character-generator",
 }
 
 
