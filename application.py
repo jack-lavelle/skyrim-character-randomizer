@@ -10,21 +10,12 @@ app = Flask(__name__)
 # TODO : do I really need another page for handle_data ... condense it into one page.
 
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def main():
-    character = Character({})
-    suggestions = database.retrieve_first_n_suggestions(4)
-
-    return render_template(
-        "front-page.html",
-        character_data=character.get_character_string_dictionary_list(),
-        suggestions=suggestions,
-    )
-
-
-@app.route("/handle_data", methods=["POST"])
-def handle_data():
-    character = selected_properties_character_gen(request)
+    if request.form.getlist("checked_property"):
+        character = selected_properties_character_gen(request)
+    else:
+        character = Character({})
     suggestions = database.retrieve_first_n_suggestions(4)
 
     return render_template(
@@ -39,7 +30,7 @@ def show_suggestion_page():
     return render_template("suggestion.html")
 
 
-@app.route("/submit_suggestion", methods=["POST", "GET"])
+@app.route("/submit_suggestion", methods=["GET", "POST"])
 def submit_suggestion():
     suggestion = request.form["suggestion"]
     database.write_suggestion(suggestion)
