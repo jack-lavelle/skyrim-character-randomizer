@@ -1,0 +1,8 @@
+{
+  "mysql_config": {
+    "host": "localhost",
+    "user": "root",
+    "password": "Sopdoo123!",
+    "database": "skyrim-character-generator"
+  }
+}

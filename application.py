@@ -1,9 +1,9 @@
 from flask import Flask
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request
 from ast import literal_eval
 from character import Character
+from database import Database
 import attributes
-import database
 
 app = Flask(__name__)
 # TODO : button for completely new character
@@ -82,4 +82,5 @@ def selected_properties_character_gen(req):
 # This must be commented out for pythonanywhere
 
 if __name__ == "__main__":
+    database = Database()
     app.run(debug=True)

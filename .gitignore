@@ -1,0 +1,11 @@
+.vscode/launch.json
+__pycache__/application.cpython-310.pyc
+__pycache__/attributes.cpython-310.pyc
+__pycache__/CharacterBuild.cpython-310.pyc
+__pycache__/database_test.cpython-310.pyc
+__pycache__/database.cpython-310.pyc
+__pycache__/NameArchiveDriver.cpython-310.pyc
+__pycache__/names.cpython-310.pyc
+__pycache__/prototype.cpython-310.pyc
+__pycache__/utilities.cpython-310.pyc
+utilities.py
