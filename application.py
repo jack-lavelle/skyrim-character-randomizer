@@ -70,6 +70,11 @@ def selected_properties_character_gen(req):
     return character
 
 
+# TODO this is what will be called from C#
+def generate_character():
+    return Character({})
+
+
 # This must be commented out for pythonanywhere
 
 if __name__ == "__main__":
