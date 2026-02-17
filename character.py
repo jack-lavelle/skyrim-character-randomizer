@@ -28,7 +28,9 @@ class Character:
 
         # Fill the remainder.
         for prop, prop_val in self.properties.items():
+            # if property is not set (and is `None`) then we set it
             if prop_val == None:
+                # if the property to be set depends on another property then we must set this property first
                 if prop in attributes.property_dependency_map:
                     required_prop = attributes.property_dependency_map[prop]
                     if self.properties[required_prop] == None:
@@ -36,6 +38,7 @@ class Character:
                             required_prop, self.properties
                         )
 
+                # set the property
                 self.properties[prop] = generate_property(prop, self.properties)
 
         # TODO: I don't like how I am using side-effects like this ... it can be hard to track down

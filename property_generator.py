@@ -97,7 +97,7 @@ def gen_traits():
     with open("traits.json") as json_data:
         traits_list = json.load(json_data)["traits"]
 
-    for i in range(3):
+    for _ in range(3):
         traits.append(r.choice(traits_list))
 
     return ", ".join(traits) + ", and " + r.choice(traits_list)
